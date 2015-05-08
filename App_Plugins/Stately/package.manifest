@@ -1,0 +1,18 @@
+﻿{
+    propertyEditors: [
+        {
+            alias: "NW.Stately",
+            name: "Stately",
+            editor: {
+                view: "~/App_Plugins/Stately/Views/view.html",
+            }
+        }
+    ]
+    ,
+    javascript: [
+        '~/App_Plugins/Stately/stately.js',
+    ],
+	css: [
+		'~/App_Plugins/Stately/stately.css'
+	]
+}
