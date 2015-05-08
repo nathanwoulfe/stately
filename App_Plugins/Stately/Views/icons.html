@@ -1,0 +1,11 @@
+﻿<div ng-controller="stately.IconController">
+    <div class="umb-pane form-horizontal stately">
+
+        <h3>Icons</h3>
+        <input ng-model="q" placeholder="Filter" ng-model-options="{debounce:300}"/>
+        <ul class="icons-list">
+            <li ng-repeat="i in icons | filter: q track by $index" class="icon {{i}}" ng-click="setIcon(i)"></li>
+        </ul>
+
+    </div>
+</div>
