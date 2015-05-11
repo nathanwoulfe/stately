@@ -1,6 +1,6 @@
 ﻿<div ng-controller="stately.ViewController" class="stately">
     <h3><span class="icon icon-hat"></span> Stately</h3>
-    <h4>Page-state icons for Umbraco 7</h4>
+    <h4>Page-state icons</h4>
     <p>Stately applies icons in the order they appear in below - if a node matches on the first state, Stately won't apply subsequent icons.</p>
     <p>The true/false flag will match on both the presence of a value in the specified property or a true/false value existing in the specified property.</p>
     <table>
@@ -14,9 +14,9 @@
         </thead>
         <tbody ui-sortable="sort" ng-model="data">
             <tr ng-repeat="d in data track by $index" ng-class="{'disabled': d.Disabled === true}">
-                <td class="alias-col"><input type="text" ng-model="d.PropertyAlias" /></td>
+                <td class="alias-col"><input type="text" ng-model="d.PropertyAlias" no-dirty-check/></td>
                 <td>
-                    <select ng-model="d.Value" ng-options="o.v as o.n for o in [{ n: 'False', v: 'false' }, { n: 'True', v: 'true' }]"></select>
+                    <select ng-model="d.Value" ng-options="o.v as o.n for o in [{ n: 'False', v: 'false' }, { n: 'True', v: 'true' }]" no-dirty-check></select>
                 </td>
                 <td class="icon {{d.CssClass}} stately_{{d.CssColor}}" ng-click="changeIcon($index)" title="Change icon"></td>
                 <td class="control-btns">

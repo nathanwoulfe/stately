@@ -21,13 +21,22 @@ namespace Stately
         private static List<Settings> StatelySettings = new List<Settings>();
         private const string ConfigPath = "~/App_Plugins/Stately/settings.config";
 
+        /// <summary>
+        /// Register the node rendering events
+        /// </summary>
+        /// <param name="umbracoApplication"></param>
+        /// <param name="applicationContext"></param>
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
-            Install.AddSectionDashboard();
             TreeControllerBase.TreeNodesRendering += new TypedEventHandler<TreeControllerBase, TreeNodesRenderingEventArgs>(this.TreeControllerBase_TreeNodesRendering);
             TreeControllerBase.RootNodeRendering += new TypedEventHandler<TreeControllerBase, TreeNodeRenderingEventArgs>(this.TreeControllerBase_RootNodeRendering);
         }
 
+        /// <summary>
+        /// Root node is handled separately - fires it's own event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TreeControllerBase_RootNodeRendering(TreeControllerBase sender, TreeNodeRenderingEventArgs e)
         {
             if (!(sender.TreeAlias == "content"))
@@ -42,6 +51,11 @@ namespace Stately
             }
         }
 
+        /// <summary>
+        /// Iterate tree nodes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TreeControllerBase_TreeNodesRendering(TreeControllerBase sender, TreeNodesRenderingEventArgs e)
         {
             if (!(sender.TreeAlias == "content"))
@@ -58,6 +72,10 @@ namespace Stately
             }
         }
 
+        /// <summary>
+        /// Grab the settings info from the config file
+        /// </summary>
+        /// <returns></returns>
         private List<Settings> GetSettings()
         {
             string filename = HostingEnvironment.MapPath("~/App_Plugins/Stately/settings.config");
@@ -87,6 +105,11 @@ namespace Stately
             return list;
         }
 
+        /// <summary>
+        /// Do the magic - adds the first matching class to the node
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="_node"></param>
         private static void AddClassesToNode(TreeNode node, IPublishedContent _node)
         {
             bool flag = false;

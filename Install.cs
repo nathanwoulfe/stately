@@ -1,10 +1,24 @@
 ﻿using System.Web.Hosting;
 using System.Xml;
+using Umbraco.Core;
 
 namespace Stately
 {
-    public static class Install
+    public class Install : ApplicationEventHandler
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="umbracoApplication"></param>
+        /// <param name="applicationContext"></param>
+        protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
+        {
+            AddSectionDashboard();
+        }
+
+        /// <summary>
+        /// Add the Stately dashboard section if it doesn't already exist
+        /// </summary>
         public static void AddSectionDashboard()
         {
             bool flag = false;

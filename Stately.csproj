@@ -30,6 +30,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="businesslogic, Version=1.0.5557.19141, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\uStats.Site\bin\businesslogic.dll</HintPath>
+    </Reference>
+    <Reference Include="cms, Version=1.0.5557.19142, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\uStats.Site\bin\cms.dll</HintPath>
+    </Reference>
     <Reference Include="interfaces">
       <HintPath>..\uStats.Site\bin\interfaces.dll</HintPath>
     </Reference>
@@ -83,8 +91,6 @@
     <Content Include=".gitignore" />
     <Content Include="App_Plugins\Stately\stately.css" />
     <Content Include="App_Plugins\Stately\stately.js" />
-    <Content Include="App_Plugins\Stately\view.html" />
-    <Content Include="App_Plugins\Stately\Views\icons.html" />
     <Content Include="App_Plugins\Stately\Views\view.html" />
   </ItemGroup>
   <ItemGroup>
