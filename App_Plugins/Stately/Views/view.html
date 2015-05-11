@@ -30,6 +30,6 @@
         </tbody>
     </table>
     <button class="btn" ng-click="addRow()">Add</button>
-    <button class="btn" ng-class="{'active': sortable === true}" ng-click="enableSorting()">Sort</button>
+    <button class="btn" ng-class="{'active': sort.disabled === false}" ng-click="enableSorting()">Sort</button>
     <button class="btn btn-success" ng-click="saveSettings()">Save</button>
 </div>
