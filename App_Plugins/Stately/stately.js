@@ -1,4 +1,4 @@
-﻿angular.module('umbraco').controller('stately.ViewController', function ($scope, statelyResources, dialogService, notificationsService, navigationService) {
+﻿angular.module('umbraco').controller('stately.ViewController', ['$scope', 'statelyResources', 'dialogService', 'notificationsService', 'navigationService', function ($scope, statelyResources, dialogService, notificationsService, navigationService) {
 
     statelyResources.getall().then(function (resp) {
         $scope.data = resp.data;
@@ -57,9 +57,7 @@
             }
         });
     }
-
-
-});
+}]);
 
 
 angular.module('umbraco').directive('stopEvent', function () {
@@ -79,26 +77,12 @@ angular.module("umbraco.resources")
         return {          
 
             getall: function () {
-                return $http.get(this.getApiPath() + "stately/SettingsApi/GetSettings");
+                return $http.get("backoffice/stately/SettingsApi/GetSettings");
             },
 
             save: function (settings) {
-                return $http.post(this.getApiPath() + "stately/SettingsApi/PostSettings", angular.toJson(settings));
-            },
-
-            getApiPath: function () {
-                var path = $cookieStore.get("statelyUmbracoVersion");
-                if (path == null) {
-                    try {
-                        var version = $http.get("backoffice/stately/SettingsApi/GetUmbracoVersion");
-                        path = "backoffice/";
-                    } catch (err) {
-                        path = "";
-                    }
-
-                }
-                $cookieStore.put('statelyUmbracoVersion', path);
-                return path;
+                return $http.post("backoffice/stately/SettingsApi/PostSettings", angular.toJson(settings));
             }
+
         };
     });
