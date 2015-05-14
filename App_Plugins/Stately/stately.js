@@ -1,9 +1,12 @@
 ﻿angular.module('umbraco').controller('stately.ViewController', ['$scope', 'statelyResources', 'dialogService', 'notificationsService', 'navigationService', function ($scope, statelyResources, dialogService, notificationsService, navigationService) {
 
+    // grab the config data
     statelyResources.getall().then(function (resp) {
         $scope.data = resp.data;
     });
 
+    // launches the Umbraco iconpicker dialog
+    // callback splits the response into class and colour
     $scope.changeIcon = function (i) {
         var dialog = dialogService.iconPicker({
             callback: function (data) {
@@ -22,6 +25,7 @@
         $scope.sort.disabled = !$scope.sort.disabled;       
     }
 
+    // add a new stately config item
     $scope.addRow = function () {
         var o = {};
         o.CssClass = "icon-smiley";
@@ -38,6 +42,7 @@
         v.Disabled = v.Disabled === undefined || v.Disabled === false ? true : false;
     };
 
+    // remove a stately row
     $scope.removeRow = function (i) {
         if ($scope.data.length > 1) {
             if (confirm('Are you sure?')) {
@@ -46,6 +51,7 @@
         }
     }
 
+    // save changes back to config
     $scope.saveSettings = function () {
         statelyResources.save($scope.data).then(function (resp) {
             if (resp.data === 'true') {
@@ -59,7 +65,7 @@
     }
 }]);
 
-
+// no more propagation on delete/disable clicks
 angular.module('umbraco').directive('stopEvent', function () {
     return {
         restrict: 'A',
@@ -71,7 +77,7 @@ angular.module('umbraco').directive('stopEvent', function () {
     };
 });
 
-
+// get/post settings back to settings.config file
 angular.module("umbraco.resources")
     .factory("statelyResources", function ($http, $cookieStore) {
         return {          

@@ -113,16 +113,20 @@ namespace Stately
         private static void AddClassesToNode(TreeNode node, IPublishedContent _node)
         {
             bool flag = false;
+            string statelyCSS = "stately_";
+
             foreach (Settings settings in StatelyTreeEvents.StatelySettings)
             {
                 if (flag)
                     break;
                 if (PublishedContentExtensions.HasProperty(_node, settings.PropertyAlias) && (PublishedContentExtensions.HasValue(_node, settings.PropertyAlias) == Convert.ToBoolean(settings.Value) || PublishedContentExtensions.GetPropertyValue<bool>(_node, settings.PropertyAlias) == Convert.ToBoolean(settings.Value)))
                 {
-                    node.CssClasses.Add("stately-" + settings.CssClass);
+                    node.CssClasses.Add(statelyCSS + settings.CssClass);
                     if (!string.IsNullOrEmpty(settings.CssColor))
-                        node.CssClasses.Add("stately_" + settings.CssColor);
-                    node.CssClasses.Add("stately");
+                    {
+                        node.CssClasses.Add(statelyCSS + settings.CssColor);
+                    }
+
                     flag = true;
                 }
             }

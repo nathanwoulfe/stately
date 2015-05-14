@@ -81,7 +81,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App_Plugins\Stately\icons.json" />
     <None Include="App_Plugins\Stately\package.manifest" />
     <None Include="App_Plugins\Stately\settings.config" />
     <None Include="App_Plugins\Stately\stately.css.map" />
