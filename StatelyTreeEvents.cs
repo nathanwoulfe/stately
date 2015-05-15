@@ -41,9 +41,11 @@ namespace Stately
         {
             if (!(sender.TreeAlias == "content"))
                 return;
+
             UmbracoHelper umbracoHelper = new UmbracoHelper(UmbracoContext.Current);
             StatelyTreeEvents.StatelySettings = this.GetSettings();
             int id = Convert.ToInt32(e.Node.Id);
+
             if (id > 0)
             {
                 IPublishedContent _node = umbracoHelper.TypedContent(id);
@@ -119,15 +121,40 @@ namespace Stately
             {
                 if (flag)
                     break;
-                if (PublishedContentExtensions.HasProperty(_node, settings.PropertyAlias) && (PublishedContentExtensions.HasValue(_node, settings.PropertyAlias) == Convert.ToBoolean(settings.Value) || PublishedContentExtensions.GetPropertyValue<bool>(_node, settings.PropertyAlias) == Convert.ToBoolean(settings.Value)))
+                if (PublishedContentExtensions.HasProperty(_node, settings.PropertyAlias))
                 {
-                    node.CssClasses.Add(statelyCSS + settings.CssClass);
-                    if (!string.IsNullOrEmpty(settings.CssColor))
-                    {
-                        node.CssClasses.Add(statelyCSS + settings.CssColor);
-                    }
 
-                    flag = true;
+                    var hasValue = PublishedContentExtensions.HasValue(_node, settings.PropertyAlias);
+                    var statelyBool = Convert.ToBoolean(settings.Value);
+                    var propString = PublishedContentExtensions.GetPropertyValue<string>(_node, settings.PropertyAlias);
+
+                    bool propBool;
+                    bool propCanParse;
+
+                    if (Boolean.TryParse(propString, out propBool))
+                        propCanParse = true;
+                    else
+                        propCanParse = false;    
+
+                    // match cases
+                    // statelyBool == false, show icon if
+                    //      node doesn't have a value for the property
+                    //      or node has a value, and the value is false
+                    // statelyBool == true, show icon if
+                    //      propAsBool is true
+                    //      node has a value which is not bool
+
+                    if ((statelyBool == false && (hasValue == false || (hasValue == true && propCanParse == true && propBool == false)))
+                    || statelyBool == true && (propBool == true || (hasValue == true && propCanParse == false))) {
+
+                        node.CssClasses.Add(statelyCSS + settings.CssClass);
+                        if (!string.IsNullOrEmpty(settings.CssColor))
+                        {
+                            node.CssClasses.Add(statelyCSS + settings.CssColor);
+                        }
+
+                        flag = true;
+                    }
                 }
             }
         }
