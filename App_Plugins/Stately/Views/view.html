@@ -18,7 +18,7 @@
                 <td>
                     <select ng-model="d.Value" ng-options="o.v as o.n for o in [{ n: 'False', v: 'false' }, { n: 'True', v: 'true' }]" no-dirty-check></select>
                 </td>
-                <td class="icon {{d.CssClass}} stately_{{d.CssColor}}" ng-click="changeIcon($index)" title="Change icon"></td>
+                <td class="icon-picker {{d.CssClass}} stately_{{d.CssColor}}" ng-click="changeIcon($index)" title="Change icon"></td>
                 <td class="control-btns">
                     <div ng-if="sort.disabled != false">
                         <span class="icon icon-power" ng-click="disableRow($index)" title="Disable" stop-event></span>

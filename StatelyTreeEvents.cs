@@ -147,7 +147,7 @@ namespace Stately
                     if ((statelyBool == false && (hasValue == false || (hasValue == true && propCanParse == true && propBool == false)))
                     || statelyBool == true && (propBool == true || (hasValue == true && propCanParse == false))) {
 
-                        node.CssClasses.Add(statelyCSS + settings.CssClass);
+                        node.CssClasses.Add("stately-icon " + settings.CssClass);
                         if (!string.IsNullOrEmpty(settings.CssColor))
                         {
                             node.CssClasses.Add(statelyCSS + settings.CssColor);
