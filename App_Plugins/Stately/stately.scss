@@ -13,12 +13,13 @@ $blue: #04bfbf;
         display: inline-block;
         text-decoration: inherit;
         font-style: normal;
+        font-variant: normal;
         font-weight: normal;
-        text-decoration: inherit;
+        font-size: 15px;
+        line-height:1;
         position: absolute;
         top:12px;
-        left:47px;
-        font-size: 15px;
+        left:47px;        
         text-rendering: auto;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
@@ -26,18 +27,33 @@ $blue: #04bfbf;
 
     > i + a, &[class^="icon-"], &[class*=" icon-"] {
         font-family:"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
-        font-size:14px;
     }
 
+    // default Umbraco icon set
     &[class^="icon-"], &[class*=" icon-"] {
         &::before {
             font-family:'icomoon';
         }
     }
 
+    // Google Material Design icon set
     &[class^="icon-gmd-"], &[class*=" icon-gmd-"] {
         &::before {
-            font: normal normal normal 14px/1 'Material Design Iconic Font';
+            font-family:'Material Design Iconic Font';
+        }
+    }
+
+    // Belle icon set
+    &[class^="icon-whhg-"], &[class*=" icon-whhg-"] {
+        &::before {
+            font-family:'WebHostingHub-Glyphs';
+        }
+    }
+
+    // FontAwesome icon set
+    &[class^="icon-fa-"], &[class*=" icon-fa-"] {
+        &::before {
+            font-family: FontAwesome;
         }
     }
 }
@@ -121,13 +137,22 @@ $blue: #04bfbf;
 
             &:nth-child(3) {
                 width:55px;
+                text-align:center;
             }
         }
     }
 
     .icon-picker {
+
+        cursor:pointer;
+
+        &:hover {
+            opacity:.5;
+        }
+
         &::before {
             margin: 0 auto;
+            line-height:30px;
         }
     }
 
