@@ -7,6 +7,38 @@ $yellow: #f28729;
 $green: #0fbf67;
 $blue: #04bfbf;    
 
+// need to calculate icon position based on nesting level of node 
+// each step adds 20px to the left, starting from 47px
+// it's dirty, but 15 steps should be enough...
+@mixin depth($depth: 1) {
+    $chain: '';
+
+    @for $i from 0 to $depth {
+        $chain: $chain + ' + ul div[style*="padding-left"]';
+    }
+  
+    & #{$chain} { @content; }
+}
+
+@mixin fromLeft($x) {
+    left: #{($x * 20) + 27}px;
+}
+
+.umb-tree ul div[style*="padding-left"] {
+
+    &.stately-icon::before {
+        left:27px;
+    }
+
+    @for $i from 1 through 10 {
+        @include depth($i) {
+            &.stately-icon::before {
+                @include fromLeft($i);
+            }
+        }
+    }
+}
+
 .stately-icon {
 
     &::before {
@@ -19,12 +51,12 @@ $blue: #04bfbf;
         line-height:1;
         position: absolute;
         top:12px;
-        left:47px;        
         text-rendering: auto;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
     }
 
+    // baseline font reset - any element with the icon- class uses the default, icon is applied to ::before pseudo 
     > i + a, &[class^="icon-"], &[class*=" icon-"] {
         font-family:"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
     }
@@ -58,11 +90,11 @@ $blue: #04bfbf;
     }
 }
 
-.stately_color-red::before { color: $red; }
-.stately_color-blue::before { color: $blue; }
-.stately_color-orange::before { color: $orange; }
-.stately_color-green::before { color: $green; }
-.stately_color-yellow::before { color: $yellow; }
+.stately-color-red::before { color: $red; }
+.stately-color-blue::before { color: $blue; }
+.stately-color-orange::before { color: $orange; }
+.stately-color-green::before { color: $green; }
+.stately-color-yellow::before { color: $yellow; }
 
 .stately {
 
@@ -101,7 +133,13 @@ $blue: #04bfbf;
 
     p {
         max-width:500px;
-        margin-bottom:30px;
+        margin-top:15px;
+
+        &:first-of-type {
+            margin-top:45px;
+            padding-top:15px;
+            border-top:1px solid #eee;
+        }
     }
 
     table {

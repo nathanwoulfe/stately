@@ -1,3 +1,26 @@
+﻿.umb-tree ul div[style*="padding-left"].stately-icon::before {
+  left: 27px; }
+.umb-tree ul div[style*="padding-left"] + ul div[style*="padding-left"].stately-icon::before {
+  left: 47px; }
+.umb-tree ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"].stately-icon::before {
+  left: 67px; }
+.umb-tree ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"].stately-icon::before {
+  left: 87px; }
+.umb-tree ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"].stately-icon::before {
+  left: 107px; }
+.umb-tree ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"].stately-icon::before {
+  left: 127px; }
+.umb-tree ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"].stately-icon::before {
+  left: 147px; }
+.umb-tree ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"].stately-icon::before {
+  left: 167px; }
+.umb-tree ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"].stately-icon::before {
+  left: 187px; }
+.umb-tree ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"].stately-icon::before {
+  left: 207px; }
+.umb-tree ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"] + ul div[style*="padding-left"].stately-icon::before {
+  left: 227px; }
+
 .stately-icon::before {
   display: inline-block;
   text-decoration: inherit;
@@ -8,12 +31,11 @@
   line-height: 1;
   position: absolute;
   top: 12px;
-  left: 47px;
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 .stately-icon > i + a, .stately-icon[class^="icon-"], .stately-icon[class*=" icon-"] {
-  font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif; }
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 .stately-icon[class^="icon-"]::before, .stately-icon[class*=" icon-"]::before {
   font-family: 'icomoon'; }
 .stately-icon[class^="icon-gmd-"]::before, .stately-icon[class*=" icon-gmd-"]::before {
@@ -23,19 +45,19 @@
 .stately-icon[class^="icon-fa-"]::before, .stately-icon[class*=" icon-fa-"]::before {
   font-family: FontAwesome; }
 
-.stately_color-red::before {
+.stately-color-red::before {
   color: #d90416; }
 
-.stately_color-blue::before {
+.stately-color-blue::before {
   color: #04bfbf; }
 
-.stately_color-orange::before {
+.stately-color-orange::before {
   color: #d9631e; }
 
-.stately_color-green::before {
+.stately-color-green::before {
   color: #0fbf67; }
 
-.stately_color-yellow::before {
+.stately-color-yellow::before {
   color: #f28729; }
 
 .stately {
@@ -63,7 +85,11 @@
     margin-bottom: 30px; }
   .stately p {
     max-width: 500px;
-    margin-bottom: 30px; }
+    margin-top: 15px; }
+    .stately p:first-of-type {
+      margin-top: 45px;
+      padding-top: 15px;
+      border-top: 1px solid #eee; }
   .stately table {
     margin-bottom: 30px; }
     .stately table th {
@@ -88,12 +114,12 @@
   .stately .icon-picker {
     cursor: pointer; }
     .stately .icon-picker:hover {
-      opacity: .5; }
+      opacity: 0.5; }
     .stately .icon-picker::before {
       margin: 0 auto;
       line-height: 30px; }
   .stately .disabled, .stately .disabled * {
-    opacity: .75; }
+    opacity: 0.75; }
   .stately .control-btns {
     min-width: 48px;
     margin: 0;
@@ -112,3 +138,5 @@
     .stately .control-btns .sorter {
       float: none;
       text-align: center; }
+
+/*# sourceMappingURL=stately.css.map */

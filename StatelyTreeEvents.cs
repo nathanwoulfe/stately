@@ -8,7 +8,6 @@ using System.Xml;
 using Umbraco.Core;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models;
-using Umbraco.Core.Services;
 using Umbraco.Web;
 using Umbraco.Web.Models.Trees;
 using Umbraco.Web.Trees;
@@ -20,6 +19,7 @@ namespace Stately
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private static List<Settings> StatelySettings = new List<Settings>();
         private const string ConfigPath = "~/App_Plugins/Stately/settings.config";
+        private UmbracoHelper umbracoHelper;
 
         /// <summary>
         /// Register the node rendering events
@@ -28,29 +28,8 @@ namespace Stately
         /// <param name="applicationContext"></param>
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
+            umbracoHelper = new UmbracoHelper(UmbracoContext.Current);
             TreeControllerBase.TreeNodesRendering += new TypedEventHandler<TreeControllerBase, TreeNodesRenderingEventArgs>(this.TreeControllerBase_TreeNodesRendering);
-            TreeControllerBase.RootNodeRendering += new TypedEventHandler<TreeControllerBase, TreeNodeRenderingEventArgs>(this.TreeControllerBase_RootNodeRendering);
-        }
-
-        /// <summary>
-        /// Root node is handled separately - fires it's own event
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void TreeControllerBase_RootNodeRendering(TreeControllerBase sender, TreeNodeRenderingEventArgs e)
-        {
-            if (!(sender.TreeAlias == "content"))
-                return;
-
-            UmbracoHelper umbracoHelper = new UmbracoHelper(UmbracoContext.Current);
-            StatelyTreeEvents.StatelySettings = this.GetSettings();
-            int id = Convert.ToInt32(e.Node.Id);
-
-            if (id > 0)
-            {
-                IPublishedContent _node = umbracoHelper.TypedContent(id);
-                StatelyTreeEvents.AddClassesToNode(e.Node, _node);
-            }
         }
 
         /// <summary>
@@ -62,13 +41,15 @@ namespace Stately
         {
             if (!(sender.TreeAlias == "content"))
                 return;
-            UmbracoHelper umbracoHelper = new UmbracoHelper(UmbracoContext.Current);
+
+            StatelySettings = StatelyTreeEvents.GetSettings();
+
             foreach (TreeNode node in (List<TreeNode>)e.Nodes)
             {
                 int id = Convert.ToInt32(node.Id);
                 IPublishedContent _node = (IPublishedContent)null;
                 if (id > 0)
-                    _node = umbracoHelper.TypedContent(id) ?? (IPublishedContent)new ContentService().GetPublishedVersion(id);
+                    _node = umbracoHelper.TypedContent(id);
                 if (_node != null)
                     StatelyTreeEvents.AddClassesToNode(node, _node);
             }
@@ -78,7 +59,7 @@ namespace Stately
         /// Grab the settings info from the config file
         /// </summary>
         /// <returns></returns>
-        private List<Settings> GetSettings()
+        private static List<Settings> GetSettings()
         {
             string filename = HostingEnvironment.MapPath("~/App_Plugins/Stately/settings.config");
             XmlDocument xmlDocument = new XmlDocument();
@@ -115,7 +96,7 @@ namespace Stately
         private static void AddClassesToNode(TreeNode node, IPublishedContent _node)
         {
             bool flag = false;
-            string statelyCSS = "stately_";
+            string statelyCSS = "stately-";
 
             foreach (Settings settings in StatelyTreeEvents.StatelySettings)
             {
