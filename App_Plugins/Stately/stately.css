@@ -137,6 +137,7 @@
         background: #eee; }
     .stately .control-btns .sorter {
       float: none;
-      text-align: center; }
+      text-align: center;
+      cursor: ns-resize; }
 
 /*# sourceMappingURL=stately.css.map */
