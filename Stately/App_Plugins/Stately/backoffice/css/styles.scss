@@ -1,0 +1,153 @@
+﻿$umbracoOrange: #df7f48;
+$umbracoBlack: #1d1d1d;
+
+$red: #d90416;
+$orange: #d9631e;
+$yellow: #f28729;
+$green: #0fbf67;
+$blue: #04bfbf;    
+
+// need to calculate icon position based on nesting level of node 
+// each step adds 20px to the left, starting from 47px
+// it's dirty, but 15 steps should be enough...
+@mixin depth($depth: 1) {
+    $chain: '';
+
+    @for $i from 0 to $depth {
+        $chain: $chain + ' + ul div[style*="padding-left"]';
+    }
+  
+    & #{$chain} { @content; }
+}
+
+@mixin fromLeft($x) {
+    left: #{($x * 20) + 27}px;
+}
+
+.umb-tree ul div[style*="padding-left"] {
+
+    &.stately-icon::before {
+        left:27px;
+    }
+
+    @for $i from 1 through 10 {
+        @include depth($i) {
+            &.stately-icon::before {
+                @include fromLeft($i);
+            }
+        }
+    }
+}
+
+.stately-icon {
+
+    &::before {
+        display: inline-block;
+        text-decoration: inherit;
+        font-style: normal;
+        font-variant: normal;
+        font-weight: normal;
+        font-size: 15px;
+        line-height:1;
+        position: absolute;
+        top:12px;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    // baseline font reset - any element with the icon- class uses the default, icon is applied to ::before pseudo 
+    > i + a, &[class^="icon-"], &[class*=" icon-"] {
+        font-family:"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+
+    // default Umbraco icon set
+    &[class^="icon-"], &[class*=" icon-"] {
+        &::before {
+            font-family:'icomoon';
+        }
+    }
+
+    // Google Material Design icon set
+    &[class^="icon-gmd-"], &[class*=" icon-gmd-"] {
+        &::before {
+            font-family:'Material Design Iconic Font';
+        }
+    }
+
+    // Belle icon set
+    &[class^="icon-whhg-"], &[class*=" icon-whhg-"] {
+        &::before {
+            font-family:'WebHostingHub-Glyphs';
+        }
+    }
+
+    // FontAwesome icon set
+    &[class^="icon-fa-"], &[class*=" icon-fa-"] {
+        &::before {
+            font-family: FontAwesome;
+        }
+    }
+}
+
+.stately-color-red::before { color: $red; }
+.stately-color-blue::before { color: $blue; }
+.stately-color-orange::before { color: $orange; }
+.stately-color-green::before { color: $green; }
+.stately-color-yellow::before { color: $yellow; }
+
+.stately {
+    .icon-picker {
+
+        cursor:pointer;
+
+        &:hover {
+            opacity:.5;
+        }
+
+        &::before {
+            margin: 0 auto;
+            line-height:30px;
+        }
+    }
+
+    .disabled, .disabled * {
+        opacity:.75;
+    }
+
+    .control-btns {
+        
+        min-width:48px;
+        margin:0;
+        background:#eee;
+
+        span {
+            cursor:pointer;
+            padding:5px;
+            display:block;        
+            float:left;
+
+            &.icon-delete {
+                &:hover {
+                    color:red;
+                }
+            }
+
+            &.icon-power {
+                &:hover {
+                    color:blue;
+                }
+            }
+
+            &:hover {
+                background:#eee;
+            }
+        }
+
+        .sorter {
+            float:none;
+            text-align:center;
+            cursor:ns-resize;
+        }
+    }
+}

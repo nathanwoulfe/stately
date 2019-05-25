@@ -1,0 +1,15 @@
+﻿{
+    javascript: [
+        '~/App_Plugins/Stately/backoffice/stately.js',
+    ],
+	css: [
+		'~/App_Plugins/Stately/backoffice/css/styles.css'
+	],
+	"dashboards": [
+    {
+      "alias": "stately",
+      "view": "~/App_Plugins/stately/backoffice/views/view.html",
+      "sections": ["settings"] 
+    }
+  ] 
+}
