@@ -1,6 +1,8 @@
 ﻿{
   "javascript": [
-    "~/App_Plugins/Stately/backoffice/stately.js"
+    "~/App_Plugins/Stately/backoffice/js/app.js",
+    "~/App_Plugins/Stately/backoffice/js/controller.js",
+    "~/App_Plugins/Stately/backoffice/js/service.js"
   ],
   "css": [
     "~/App_Plugins/Stately/backoffice/css/styles.css"

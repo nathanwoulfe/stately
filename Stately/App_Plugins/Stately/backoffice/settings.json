@@ -2,8 +2,8 @@
   {
     "propertyAlias": "umbracoNavihide",
     "value": "true",
-    "cssClss": null,
-    "cssColor": "color-blue",
+    "cssClass": "",
+    "cssColor": "",
     "disabled": false
   }
 ]

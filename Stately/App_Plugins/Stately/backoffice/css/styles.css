@@ -75,6 +75,9 @@
 .stately-color-yellow::before {
   color: #f28729; }
 
+.stately table {
+  max-width: 750px; }
+
 .stately .icon-picker {
   cursor: pointer; }
   .stately .icon-picker:hover {
@@ -86,22 +89,14 @@
 .stately .disabled, .stately .disabled * {
   opacity: .75; }
 
-.stately .control-btns {
-  min-width: 48px;
-  margin: 0;
-  background: #eee; }
-  .stately .control-btns span {
-    cursor: pointer;
-    padding: 5px;
-    display: block;
-    float: left; }
-    .stately .control-btns span.icon-delete:hover {
-      color: red; }
-    .stately .control-btns span.icon-power:hover {
-      color: blue; }
-    .stately .control-btns span:hover {
-      background: #eee; }
-  .stately .control-btns .sorter {
-    float: none;
-    text-align: center;
-    cursor: ns-resize; }
+.stately .btn + .btn {
+  margin-left: 5px; }
+
+.stately input, .stately select {
+  margin-bottom: 0; }
+
+.stately .icon-picker {
+  width: 20px;
+  height: 20px;
+  font-size: 30px;
+  display: block; }

@@ -1,36 +1,46 @@
 ﻿<div ng-controller="stately.controller as vm" class="stately">
-    <h3>Stately</h3>
-    <h4>Page-state icons</h4>
-    <table>
-        <thead>
-            <tr>
-                <th class="alias-col">Property alias</th>
-                <th class="value-col">Has value?</th>
-                <th class="icons-col">Icon</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody ui-sortable="sort" ng-model="data">
-            <tr ng-repeat="d in vm.data track by $index" ng-class="{'disabled': d.disabled === true}">
-                <td class="alias-col"><input type="text" ng-model="d.propertyAlias" no-dirty-check/></td>
-                <td>
-                    <select ng-model="d.value" ng-options="o.v as o.n for o in [{ n: 'False', v: 'false' }, { n: 'True', v: 'true' }]" no-dirty-check></select>
-                </td>
-                <td class="icon {{d.cssClass}} stately-{{d.cssColor}}" ng-click="vm.changeIcon($index)" title="Change icon"></td>
-                <td class="control-btns">
-                    <div ng-if="vm.sort.disabled != false">
-                        <button role="button" class="icon icon-power" ng-click="vm.disableRow($index)" title="Disable"></button>
-                        <button role="button" class="icon icon-delete" ng-click="vm.removeRow($index)" title="Delete"></button>
-                    </div>
-                    <span class="sorter icon icon-navigation-vertical" ng-if="vm.sort.disabled == false"></span>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <button role="button" class="btn" ng-click="vm.addRow()">Add</button>
-    <button role="button" class="btn" ng-class="{'active': vm.sort.disabled === false}" ng-click="vm.enableSorting()">Sort</button>
-    <button role="button" class="btn btn-success" ng-click="vm.saveSettings()">Save</button>
 
-    <p>Stately applies icons in the order they appear above - if a node matches on the first state, Stately won't apply subsequent icons.</p>
-    <p>The true/false flag will match on both the presence of a value in the specified property or a true/false value existing in the specified property.</p>
+    <umb-box>
+        <umb-box-content>
+            <h3 class="bold">Stately - page state icons</h3>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th class="alias-col">Property alias</th>
+                        <th class="value-col">Has value?</th>
+                        <th class="icons-col">Icon</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody ui-sortable="vm.sortableOptions" ng-model="vm.data">
+                    <tr ng-repeat="d in vm.data track by $index" ng-class="{'disabled': d.disabled === true}">
+                        <td>
+                            <span class="icon icon-navigation handle"></span>
+                        </td>
+                        <td class="alias-col"><input type="text" ng-model="d.propertyAlias" no-dirty-check /></td>
+                        <td>
+                            <select ng-model="d.value" ng-options="o.v as o.n for o in [{ n: 'False', v: 'false' }, { n: 'True', v: 'true' }]" no-dirty-check></select>
+                        </td>
+                        <td>
+                            <span class="icon-picker icon {{d.cssClass}} {{d.cssColor}}" ng-click="vm.changeIcon($index)" title="Change icon"></span>
+                        </td>
+                        <td class="flex">
+                            <button role="button" class="btn" ng-click="vm.disableRow($index)" title="Disable">Disable</button>
+                            <button role="button" class="btn btn-danger" ng-click="vm.removeRow($index)" title="Delete">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="mb3">
+                <button role="button" class="btn" ng-click="vm.addRow()">Add</button>
+                <button role="button" class="btn btn-success" ng-click="vm.saveSettings()">Save</button>
+            </div>
+
+            <p>Stately applies icons in the order they appear above - if a node matches on the first state, Stately won't apply subsequent icons.</p>
+            <p>The true/false flag will match on both the presence of a value in the specified property or a true/false value existing in the specified property.</p>
+        </umb-box-content>
+    </umb-box>
 </div>

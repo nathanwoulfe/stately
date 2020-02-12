@@ -4,7 +4,6 @@ using Umbraco.Core.Composing;
 
 namespace Stately.Startup
 {
-    [RuntimeLevel(MinLevel = RuntimeLevel.Run)]
     public class StatelyComposer : IUserComposer
     {
         public void Compose(Composition composition)

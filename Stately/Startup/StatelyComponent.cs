@@ -1,12 +1,15 @@
-﻿using Stately.Models;
+﻿using Stately.Api;
+using Stately.Models;
 using Stately.Services;
 using System;
 using System.Collections.Generic;
-using Umbraco.Core;
+using System.Web;
+using System.Web.Routing;
 using Umbraco.Core.Composing;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
+using Umbraco.Web.JavaScript;
 using Umbraco.Web.Models.Trees;
 using Umbraco.Web.Trees;
 
@@ -23,12 +26,33 @@ namespace Stately.Startup
 
         public void Initialize()
         {
+            ServerVariablesParser.Parsing += ServerVariablesParser_Parsing;
             TreeControllerBase.TreeNodesRendering += new TypedEventHandler<TreeControllerBase, TreeNodesRenderingEventArgs>(TreeControllerBase_TreeNodesRendering);
         }
 
+        /// <summary>
+        /// Add preflight-specific values to the servervariables dictionary
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="dictionary"></param>
+        private static void ServerVariablesParser_Parsing(object sender, Dictionary<string, object> dictionary)
+        {
+            var urlHelper = new System.Web.Mvc.UrlHelper(new RequestContext(new HttpContextWrapper(HttpContext.Current), new RouteData()));
+
+            dictionary.Add("Stately", new Dictionary<string, object>
+            {
+                { "ApiPath", urlHelper.GetUmbracoApiServiceBaseUrl<SettingsApiController>(controller => controller.Get()) }
+            });
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TreeControllerBase_TreeNodesRendering(TreeControllerBase sender, TreeNodesRenderingEventArgs e)
         {
-            if (!(sender.TreeAlias == Constants.Applications.Content))
+            if (!(sender.TreeAlias == Umbraco.Core.Constants.Applications.Content))
                 return;
 
             var settings = _settingsService.Get();
@@ -40,7 +64,7 @@ namespace Stately.Startup
 
                 if (id > 0)
                 {
-                    node = Umbraco.Web.Composing.Current.UmbracoContext.ContentCache.GetById(id);
+                    node = sender.UmbracoContext.Content.GetById(id);
                 }
 
                 if (node != null)
@@ -55,11 +79,11 @@ namespace Stately.Startup
         /// </summary>
         /// <param name="treeNode"></param>
         /// <param name="node"></param>
-        private static void AddClassesToNode(TreeNode treeNode, IPublishedContent node, List<Settings> settings)
+        private static void AddClassesToNode(TreeNode treeNode, IPublishedContent node, List<StatelySettings> settings)
         {
             bool flag = false;
 
-            foreach (Settings setting in settings)
+            foreach (StatelySettings setting in settings)
             {
                 if (flag)
                     break;

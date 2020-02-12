@@ -18,7 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stately.Site", "Stately.Site\Stately.Site.csproj", "{2E4105B7-AD03-4BB4-ACE8-C7958C60F6EC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stately.Site", "Stately.Site\Stately.Site.csproj", "{EFBD880C-5AA0-4A70-8F87-B8657FF22C68}"
 	ProjectSection(ProjectDependencies) = postProject
 		{2D38D0A7-7A54-4588-8987-F414B9423238} = {2D38D0A7-7A54-4588-8987-F414B9423238}
 	EndProjectSection
@@ -33,10 +33,10 @@ Global
 		{2D38D0A7-7A54-4588-8987-F414B9423238}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D38D0A7-7A54-4588-8987-F414B9423238}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D38D0A7-7A54-4588-8987-F414B9423238}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2E4105B7-AD03-4BB4-ACE8-C7958C60F6EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2E4105B7-AD03-4BB4-ACE8-C7958C60F6EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2E4105B7-AD03-4BB4-ACE8-C7958C60F6EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2E4105B7-AD03-4BB4-ACE8-C7958C60F6EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFBD880C-5AA0-4A70-8F87-B8657FF22C68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFBD880C-5AA0-4A70-8F87-B8657FF22C68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFBD880C-5AA0-4A70-8F87-B8657FF22C68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFBD880C-5AA0-4A70-8F87-B8657FF22C68}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

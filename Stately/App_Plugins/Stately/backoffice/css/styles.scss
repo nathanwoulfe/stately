@@ -10,6 +10,7 @@ $blue: #04bfbf;
 // need to calculate icon position based on nesting level of node 
 // each step adds 20px to the left, starting from 47px
 // it's dirty, but 15 steps should be enough...
+
 @mixin depth($depth: 1) {
     $chain: '';
 
@@ -40,7 +41,6 @@ $blue: #04bfbf;
 }
 
 .stately-icon {
-
     &::before {
         display: inline-block;
         text-decoration: inherit;
@@ -97,8 +97,11 @@ $blue: #04bfbf;
 .stately-color-yellow::before { color: $yellow; }
 
 .stately {
-    .icon-picker {
+    table {
+        max-width:750px;
+    }
 
+    .icon-picker {
         cursor:pointer;
 
         &:hover {
@@ -115,39 +118,18 @@ $blue: #04bfbf;
         opacity:.75;
     }
 
-    .control-btns {
-        
-        min-width:48px;
-        margin:0;
-        background:#eee;
+    .btn + .btn {
+        margin-left:5px;
+    }
 
-        span {
-            cursor:pointer;
-            padding:5px;
-            display:block;        
-            float:left;
+    input, select {
+        margin-bottom:0;
+    }
 
-            &.icon-delete {
-                &:hover {
-                    color:red;
-                }
-            }
-
-            &.icon-power {
-                &:hover {
-                    color:blue;
-                }
-            }
-
-            &:hover {
-                background:#eee;
-            }
-        }
-
-        .sorter {
-            float:none;
-            text-align:center;
-            cursor:ns-resize;
-        }
+    .icon-picker {
+        width:20px;
+        height:20px;       
+        font-size:30px;
+        display:block;
     }
 }

@@ -106,36 +106,36 @@
             // dev watches everything, copies everything
             dev: {
                 files: ['<%= backoffice %>/**/*'],
-                tasks: ['sass:dist', 'copy:dev'],
+                tasks: ['sass:dist', 'copy:dev', 'copy:langDev'],
                 options: {
                     livereload: true
                 }
             },
 
-            css: {
-                files: ['<%= backoffice %>/**/*.scss'],
-                tasks: ['sass:dist']
-            },
+            //css: {
+            //    files: ['<%= backoffice %>/**/*.scss'],
+            //    tasks: ['sass:dist']
+            //},
 
-            js: {
-                files: ['<%= backoffice %>/**/*.js'],
-                tasks: ['copy:js']
-            },
+            //js: {
+            //    files: ['<%= backoffice %>/**/*.js'],
+            //    tasks: ['copy:js']
+            //},
 
-            html: {
-                files: ['<%= backoffice %>/**/*.html'],
-                tasks: ['copy:html']
-            },
+            //html: {
+            //    files: ['<%= backoffice %>/**/*.html'],
+            //    tasks: ['copy:html']
+            //},
 
-            config: {
-                files: ['<%= basePath %>/package.manifest'],
-                tasks: ['copy:config']
-            },
+            //config: {
+            //    files: ['<%= basePath %>/package.manifest'],
+            //    tasks: ['copy:config']
+            //},
 
-            lang: {
-                files: ['<%= basePath %>/lang/**'],
-                tasks: ['copy:lang']
-            }
+            //lang: {
+            //    files: ['<%= basePath %>/lang/**'],
+            //    tasks: ['copy:lang']
+            //}
         },
 
         copy: {
@@ -193,7 +193,7 @@
                 expand: true,
                 cwd: '<%= basePath %>/lang/',
                 src: '**',
-                dest: '../stately.site/lang/',
+                dest: '../stately.site/<%= basePath %>/lang/',
             },
 
             nuget: {

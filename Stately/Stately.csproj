@@ -32,11 +32,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Http">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
@@ -49,32 +52,38 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Umbraco.Core">
-      <HintPath>..\packages\UmbracoCms.Core.8.0.2\lib\net472\Umbraco.Core.dll</HintPath>
+    <Reference Include="Umbraco.Core, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\UmbracoCms.Core.8.3.0\lib\net472\Umbraco.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Umbraco.Web">
-      <HintPath>..\packages\UmbracoCms.Web.8.0.2\lib\net472\Umbraco.Web.dll</HintPath>
+    <Reference Include="Umbraco.Web, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\UmbracoCms.Web.8.3.0\lib\net472\Umbraco.Web.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\ApiController.cs" />
-    <Compile Include="Models\Settings.cs" />
+    <Compile Include="Api\SettingsApiController.cs" />
+    <Compile Include="Models\StatelySettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ISettingsService.cs" />
     <Compile Include="Startup\StatelyComponent.cs" />
     <Compile Include="Startup\StatelyComposer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="App_Plugins\Stately\dist.manifest" />
     <None Include="App_Plugins\Stately\package.manifest" />
     <None Include="App_Plugins\Stately\backoffice\css\styles.scss" />
     <None Include="App_Plugins\Stately\backoffice\settings.json" />
     <None Include="package.json" />
     <Compile Include="Services\SettingsService.cs" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\Stately\backoffice\stately.js" />
-    <Content Include="App_Plugins\Stately\backoffice\Views\view.html" />
+    <Content Include="App_Plugins\Stately\backoffice\js\app.js" />
+    <Content Include="App_Plugins\Stately\backoffice\js\controller.js" />
+    <Content Include="App_Plugins\Stately\backoffice\js\service.js" />
+    <Content Include="App_Plugins\Stately\backoffice\views\view.html" />
     <Content Include="App_Plugins\Stately\lang\en-US.xml" />
     <Content Include="Gruntfile.js" />
   </ItemGroup>

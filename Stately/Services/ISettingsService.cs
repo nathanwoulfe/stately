@@ -5,7 +5,7 @@ namespace Stately.Services
 {
     public interface ISettingsService
     {
-        List<Settings> Get();
-        bool Set(List<Settings> settings);
+        List<StatelySettings> Get();
+        bool Set(List<StatelySettings> settings);
     }
 }
