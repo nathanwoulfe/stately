@@ -1,9 +1,11 @@
 ﻿[
   {
     "propertyAlias": "umbracoNavihide",
-    "value": "true",
+    "value": true,
     "cssClass": "",
     "cssColor": "",
-    "disabled": false
+    "disabled": false,
+    "replace": false,
+    "recolor": false
   }
 ]

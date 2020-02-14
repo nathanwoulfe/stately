@@ -8,26 +8,39 @@
                 <thead>
                     <tr>
                         <th></th>
-                        <th class="alias-col">Property alias</th>
-                        <th class="value-col">Has value?</th>
-                        <th class="icons-col">Icon</th>
+                        <th>Property alias</th>
+                        <th>Has value?</th>
+                        <th>Replace existing?</th>
+                        <th>Recolor existing?</th>
+                        <th>Icon/color</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody ui-sortable="vm.sortableOptions" ng-model="vm.data">
-                    <tr ng-repeat="d in vm.data track by $index" ng-class="{'disabled': d.disabled === true}">
+                    <tr ng-repeat="d in vm.data track by $index" class="stately-tablerow" ng-class="{'disabled': d.disabled === true, 'recolor': d.recolor, 'replace': d.replace}">
                         <td>
                             <span class="icon icon-navigation handle"></span>
                         </td>
-                        <td class="alias-col"><input type="text" ng-model="d.propertyAlias" no-dirty-check /></td>
                         <td>
-                            <select ng-model="d.value" ng-options="o.v as o.n for o in [{ n: 'False', v: 'false' }, { n: 'True', v: 'true' }]" no-dirty-check></select>
+                            <select ng-model="d.propertyAlias" ng-options="alias for alias in vm.aliases" no-dirty-check></select>
                         </td>
                         <td>
-                            <span class="icon-picker icon {{d.cssClass}} {{d.cssColor}}" ng-click="vm.changeIcon($index)" title="Change icon"></span>
+                            <umb-toggle checked="d.value" on-click="d.value = !d.value">
+                            </umb-toggle>                           
                         </td>
-                        <td class="flex">
-                            <button role="button" class="btn" ng-click="vm.disableRow($index)" title="Disable">Disable</button>
+                        <td>
+                            <umb-toggle checked="d.replace" on-click="d.replace = !d.replace">
+                            </umb-toggle>
+                        </td>
+                        <td>
+                            <umb-toggle checked="d.recolor" on-click="d.recolor = !d.recolor">
+                            </umb-toggle>
+                        </td>
+                        <td>
+                            <span class="iconpicker icon {{d.cssClass}} {{d.cssColor}}" ng-click="vm.changeIcon($index)" title="Change icon"></span>
+                        </td>
+                        <td class="text-center">
+                            <button role="button" class="btn" ng-class="{'btn-success' : d.disabled }" ng-click="vm.disableRow($index)" title="Disable" ng-bind="d.disabled ? 'Enable' : 'Disable'"></button>
                             <button role="button" class="btn btn-danger" ng-click="vm.removeRow($index)" title="Delete">Delete</button>
                         </td>
                     </tr>

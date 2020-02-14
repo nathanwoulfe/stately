@@ -1,11 +1,4 @@
-﻿$umbracoOrange: #df7f48;
-$umbracoBlack: #1d1d1d;
-
-$red: #d90416;
-$orange: #d9631e;
-$yellow: #f28729;
-$green: #0fbf67;
-$blue: #04bfbf;    
+﻿@import "colors" ;
 
 // need to calculate icon position based on nesting level of node 
 // each step adds 20px to the left, starting from 47px
@@ -15,20 +8,20 @@ $blue: #04bfbf;
     $chain: '';
 
     @for $i from 0 to $depth {
-        $chain: $chain + ' + ul div[style*="padding-left"]';
+        $chain: $chain + ' > ul > .umb-tree-item';
     }
   
     & #{$chain} { @content; }
-}
+} 
 
 @mixin fromLeft($x) {
-    left: #{($x * 20) + 27}px;
+    left: #{($x * 20) + 30}px;
 }
 
-.umb-tree ul div[style*="padding-left"] {
+.umb-tree-item { 
 
     &.stately-icon::before {
-        left:27px;
+        left:50px;
     }
 
     @for $i from 1 through 10 {
@@ -37,99 +30,104 @@ $blue: #04bfbf;
                 @include fromLeft($i);
             }
         }
+    } 
+}
+
+.stately-tablerow {
+    &.disabled, &.disabled * {
+        opacity: .75;
+    }
+
+    &.recolor:not(.replace) {
+        .iconpicker::before {
+            content:'\e055';
+        }
     }
 }
 
 .stately-icon {
+    position: relative;
+
     &::before {
-        display: inline-block;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        font-family: 'icomoon';
         text-decoration: inherit;
         font-style: normal;
         font-variant: normal;
         font-weight: normal;
-        font-size: 15px;
-        line-height:1;
+        font-size: 9px;
+        line-height: 1;
         position: absolute;
-        top:12px;
+        top: 20px;
         text-rendering: auto;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
+        z-index: 1;
+        // present same as umb-tree-item--annotation
+        border-radius: 50%;
+        background: #fff;
+        width: 12px;
+        height: 12px;
     }
 
-    // baseline font reset - any element with the icon- class uses the default, icon is applied to ::before pseudo 
+    &.current {
+        &::before {
+            background: $umbPink;
+        }
+    }
+
+    &.is-container,
+    &.has-unpublished-version {
+        &::before {
+            display: none;
+        }
+    }
+
+    // baseline font reset - any element with the icon- class uses the default, icon is applied to ::before pseudo
     > i + a, &[class^="icon-"], &[class*=" icon-"] {
-        font-family:"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
-    }
-
-    // default Umbraco icon set
-    &[class^="icon-"], &[class*=" icon-"] {
-        &::before {
-            font-family:'icomoon';
-        }
-    }
-
-    // Google Material Design icon set
-    &[class^="icon-gmd-"], &[class*=" icon-gmd-"] {
-        &::before {
-            font-family:'Material Design Iconic Font';
-        }
-    }
-
-    // Belle icon set
-    &[class^="icon-whhg-"], &[class*=" icon-whhg-"] {
-        &::before {
-            font-family:'WebHostingHub-Glyphs';
-        }
-    }
-
-    // FontAwesome icon set
-    &[class^="icon-fa-"], &[class*=" icon-fa-"] {
-        &::before {
-            font-family: FontAwesome;
-        }
+        font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
     }
 }
 
-.stately-color-red::before { color: $red; }
-.stately-color-blue::before { color: $blue; }
-.stately-color-orange::before { color: $orange; }
-.stately-color-green::before { color: $green; }
-.stately-color-yellow::before { color: $yellow; }
-
 .stately {
     table {
-        max-width:750px;
+        max-width: 1000px;
     }
 
-    .icon-picker {
-        cursor:pointer;
+    .iconpicker {
+        cursor: pointer;
+        width: 30px; 
+        height: 30px;
+        font-size: 30px;
+        display: block;
 
         &:hover {
-            opacity:.5;
+            opacity: .5;
         }
 
         &::before {
             margin: 0 auto;
-            line-height:30px;
+            line-height: 30px;
         }
     }
 
-    .disabled, .disabled * {
-        opacity:.75;
-    }
+    .text-center {
+        text-align:center;
 
-    .btn + .btn {
-        margin-left:5px;
+        .btn:first-child {
+            margin-left:-15px;
+            float:left;
+        }
+
+        .btn:last-child {
+            margin-right:-15px;
+        }
     }
 
     input, select {
-        margin-bottom:0;
+        margin-bottom: 0;
     }
-
-    .icon-picker {
-        width:20px;
-        height:20px;       
-        font-size:30px;
-        display:block;
-    }
-}
+} 

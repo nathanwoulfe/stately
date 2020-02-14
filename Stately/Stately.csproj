@@ -54,11 +54,11 @@
     <Reference Include="System.Xml" />
     <Reference Include="Umbraco.Core, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\UmbracoCms.Core.8.3.0\lib\net472\Umbraco.Core.dll</HintPath>
+      <HintPath>..\packages\UmbracoCms.Core.8.4.0\lib\net472\Umbraco.Core.dll</HintPath>
     </Reference>
     <Reference Include="Umbraco.Web, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\UmbracoCms.Web.8.3.0\lib\net472\Umbraco.Web.dll</HintPath>
+      <HintPath>..\packages\UmbracoCms.Web.8.4.0\lib\net472\Umbraco.Web.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -71,6 +71,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="App_Plugins\Stately\backoffice\css\colors.scss" />
+    <None Include="App_Plugins\Stately\backoffice\css\_variables.scss" />
     <None Include="App_Plugins\Stately\dist.manifest" />
     <None Include="App_Plugins\Stately\package.manifest" />
     <None Include="App_Plugins\Stately\backoffice\css\styles.scss" />
@@ -82,6 +84,7 @@
   <ItemGroup>
     <Content Include="App_Plugins\Stately\backoffice\js\app.js" />
     <Content Include="App_Plugins\Stately\backoffice\js\controller.js" />
+    <Content Include="App_Plugins\Stately\backoffice\js\hook.directive.js" />
     <Content Include="App_Plugins\Stately\backoffice\js\service.js" />
     <Content Include="App_Plugins\Stately\backoffice\views\view.html" />
     <Content Include="App_Plugins\Stately\lang\en-US.xml" />

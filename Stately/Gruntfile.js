@@ -106,52 +106,28 @@
             // dev watches everything, copies everything
             dev: {
                 files: ['<%= backoffice %>/**/*'],
-                tasks: ['sass:dist', 'copy:dev', 'copy:langDev'],
+                tasks: ['sass:dist', 'copy:dev', 'copy:configDev'],
                 options: {
                     livereload: true
                 }
-            },
-
-            //css: {
-            //    files: ['<%= backoffice %>/**/*.scss'],
-            //    tasks: ['sass:dist']
-            //},
-
-            //js: {
-            //    files: ['<%= backoffice %>/**/*.js'],
-            //    tasks: ['copy:js']
-            //},
-
-            //html: {
-            //    files: ['<%= backoffice %>/**/*.html'],
-            //    tasks: ['copy:html']
-            //},
-
-            //config: {
-            //    files: ['<%= basePath %>/package.manifest'],
-            //    tasks: ['copy:config']
-            //},
-
-            //lang: {
-            //    files: ['<%= basePath %>/lang/**'],
-            //    tasks: ['copy:lang']
-            //}
+            }
         },
 
         copy: {
             dev: {
                 expand: true,
                 cwd: '<%= backoffice %>/',
-                src: '**/*',
+                //src: ['**/*'],
+                src: ['**/*', '!settings.json'], // don't overwrite settings
                 dest: '../stately.site/<%= backoffice %>/',
             },
 
-            manifest: {
+            config: {
                 src: '<%= basePath %>/dist.manifest', // dist.manifest only references the compiled, prod-ready css/js
                 dest: '<%= dest %>/<%= basePath %>/package.manifest',
             },
 
-            manifestDev: {
+            configDev: {
                 src: '<%= basePath %>/package.manifest',
                 dest: '../stately.site/<%= basePath %>/package.manifest',
             },
@@ -189,13 +165,6 @@
                 dest: '<%= dest %>/<%= basePath %>/lang',
             },
 
-            langDev: {
-                expand: true,
-                cwd: '<%= basePath %>/lang/',
-                src: '**',
-                dest: '../stately.site/<%= basePath %>/lang/',
-            },
-
             nuget: {
                 expand: true,
                 cwd: '<%= dest %>',
@@ -213,7 +182,7 @@
             umbracoBin: {
                 expand: true,
                 cwd: 'bin/Debug/',
-                src: 'Preflight.*',
+                src: 'Stately.*',
                 dest: 'tmp/umbraco/bin'
             },
 
@@ -306,9 +275,9 @@
         }
     });
 
-    grunt.registerTask('default', ['jshint', 'concat', 'browserify', 'sass', 'cssmin', 'copy:json', 'copy:manifest', 'copy:html', 'copy:lang']);
+    grunt.registerTask('default', ['jshint', 'concat', 'browserify', 'sass', 'cssmin', 'copy:config', 'copy:json', 'copy:html', 'copy:lang']);
     grunt.registerTask('nuget', ['clean', 'default', 'copy:nuget', 'template:nuspec', 'mkdir:pkg', 'nugetpack']);
     grunt.registerTask('package', ['clean', 'default', 'copy:umbraco', 'copy:umbracoBin', 'mkdir:pkg', 'umbracoPackage']);
-    
-    grunt.registerTask('dev', ['copy:langDev', 'copy:dev', 'copy:manifestDev', 'watch:dev']);
+
+    grunt.registerTask('dev', ['watch:dev']);
 };

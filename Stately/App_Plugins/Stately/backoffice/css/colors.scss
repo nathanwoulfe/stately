@@ -1,0 +1,15 @@
+﻿@import "_variables";
+
+$colors: $black, $blueGrey, $grayIcon, $brownIcon, $blueIcon, $lightBlueIcon, $indigoIcon, $purpleIcon, $deepPurpleIcon, $cyanIcon, $greenIcon, $lightGreenIcon, $limeIcon, $yellowIcon, $amberIcon, $orangeIcon, $deepOrangeIcon, $redIcon, $pinkIcon;
+$names: 'black', 'blue-grey', 'grey', 'brown', 'blue', 'light-blue', 'indigo', 'purple', 'deep-purple', 'cyan', 'green', 'light-green', 'lime', 'yellow', 'amber', 'orange', 'deep-orange', 'red', 'pink',;
+
+//icon colors for tree icons
+@for $i from 1 through 19 {
+    $c: nth($colors, $i);
+    $n: nth($names, $i);
+
+    .stately-recolor-#{$n} > .umb-tree-item__inner .umb-tree-icon,
+    .stately-color-#{$n}::before {
+        color: $c !important;
+    }
+}

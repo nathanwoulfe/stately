@@ -14,7 +14,7 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "babelify": "^8.0.0",
+    "babelify": "^10.0.0",
     "grunt": "^1.0.2",
     "grunt-banner": "*",
     "grunt-browserify": "^5.3.0",
@@ -29,7 +29,7 @@
     "grunt-sass": "^3.0.2",
     "grunt-template": "*",
     "grunt-umbraco-package": "^1.0.0",
-    "load-grunt-tasks": "^4.0.0",
+    "load-grunt-tasks": "^5.1.0",
     "node-sass": "^4.11.0",
     "time-grunt": "*"
   }

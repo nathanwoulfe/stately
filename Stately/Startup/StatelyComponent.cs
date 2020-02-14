@@ -3,11 +3,13 @@ using Stately.Models;
 using Stately.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Routing;
 using Umbraco.Core.Composing;
 using Umbraco.Core.Events;
 using Umbraco.Core.Models.PublishedContent;
+using Umbraco.Core.Services;
 using Umbraco.Web;
 using Umbraco.Web.JavaScript;
 using Umbraco.Web.Models.Trees;
@@ -18,10 +20,12 @@ namespace Stately.Startup
     public class StatelyComponent : IComponent
     {
         private readonly ISettingsService _settingsService;
+        private readonly IContentService _contentService;
 
-        public StatelyComponent(ISettingsService settingsService)
+        public StatelyComponent(ISettingsService settingsService, IContentService contentService)
         {
-            _settingsService = settingsService;
+            _settingsService = settingsService ?? throw new ArgumentNullException(nameof(settingsService));
+            _contentService = contentService ?? throw new ArgumentNullException(nameof(contentService));
         }
 
         public void Initialize()
@@ -55,7 +59,7 @@ namespace Stately.Startup
             if (!(sender.TreeAlias == Umbraco.Core.Constants.Applications.Content))
                 return;
 
-            var settings = _settingsService.Get();
+            var settings = _settingsService.GetActiveSettings();
 
             foreach (TreeNode treeNode in e.Nodes)
             {
@@ -79,44 +83,51 @@ namespace Stately.Startup
         /// </summary>
         /// <param name="treeNode"></param>
         /// <param name="node"></param>
-        private static void AddClassesToNode(TreeNode treeNode, IPublishedContent node, List<StatelySettings> settings)
+        private void AddClassesToNode(TreeNode treeNode, IPublishedContent node, List<StatelySettings> settings)
         {
-            bool flag = false;
+            // need the IContent item for access to the current property values
+            // however, we should only fetch that if it has properties existing in settings.
+            var currentSettingsAliases = settings.Select(x => x.PropertyAlias).ToList();
+            var validProperties = node.ContentType.PropertyTypes.Where(x => currentSettingsAliases.Contains(x.Alias));
+
+            if (!validProperties.Any())
+                return;
+
+            var content = _contentService.GetById(node.Id);
 
             foreach (StatelySettings setting in settings)
             {
-                if (flag)
-                    break;
-
-                if (node.HasProperty(setting.PropertyAlias))
+                if (content.HasProperty(setting.PropertyAlias))
                 {
+                    var property = validProperties.First(x => x.Alias == setting.PropertyAlias);
+                    var propAsBool = property.ClrType.FullName == "System.Boolean"
+                            ? content.GetValue<bool>(setting.PropertyAlias)
+                            : content.GetValue(setting.PropertyAlias) != null;                
 
-                    var hasValue = node.HasValue(setting.PropertyAlias);
-                    var statelyBool = Convert.ToBoolean(setting.Value);
-                    var propString = node.Value<string>(setting.PropertyAlias);
-
-                    bool propCanParse = bool.TryParse(propString, out bool propBool);
-
-                    // match cases
-                    // statelyBool == false, show icon if
-                    //      node doesn't have a value for the property
-                    //      or node has a value, and the value is false
-                    // statelyBool == true, show icon if
-                    //      propAsBool is true
-                    //      node has a value which is not bool
-
-                    if ((statelyBool == false && (hasValue == false || (hasValue == true && propCanParse == true && propBool == false)))
-                    || statelyBool == true && (propBool == true || (hasValue == true && propCanParse == false)))
+                    if (setting.Value == propAsBool)
                     {
-
-                        treeNode.CssClasses.Add($"stately-icon {setting.CssClass}");
-
-                        if (!string.IsNullOrEmpty(setting.CssColor))
+                        if (setting.Replace || setting.Recolor)
                         {
-                            treeNode.CssClasses.Add($"stately-{setting.CssColor}");
+                            if (setting.Replace && setting.CssClass != null)
+                            {
+                                treeNode.Icon = setting.CssClass;
+                            }
+                            if (setting.Recolor)
+                            {
+                                treeNode.CssClasses.Add($"stately-re{setting.CssColor}");
+                            }
+                        }
+                        else
+                        {
+                            treeNode.CssClasses.Add($"stately-icon {setting.CssClass}");
+
+                            if (!string.IsNullOrEmpty(setting.CssColor))
+                            {
+                                treeNode.CssClasses.Add($"stately-{setting.CssColor}");
+                            }
                         }
 
-                        flag = true;
+                        break;
                     }
                 }
             }

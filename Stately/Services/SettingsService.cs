@@ -3,10 +3,12 @@ using Stately.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Web;
 using Umbraco.Core.Cache;
 using Umbraco.Core.Composing;
 using Umbraco.Core.Logging;
+using Umbraco.Core.Services;
 
 namespace Stately.Services
 {
@@ -14,11 +16,13 @@ namespace Stately.Services
     {
         private readonly string _configPath = HttpContext.Current.Server.MapPath("~/app_plugins/stately/backoffice/settings.json");
 
+        private readonly IContentTypeService _contentTypeService;
         private readonly ILogger _logger;
 
-        public SettingsService(ILogger logger)
+        public SettingsService(ILogger logger, IContentTypeService contentTypeService)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _contentTypeService = contentTypeService ?? throw new ArgumentNullException(nameof(contentTypeService));
         }
 
         private List<StatelySettings> GetSettings()
@@ -55,6 +59,15 @@ namespace Stately.Services
         /// <summary>
         /// 
         /// </summary>
+        /// <returns></returns>
+        public List<StatelySettings> GetActiveSettings()
+        {
+            return Get().Where(x => !x.Disabled).ToList();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="settings"></param>
         /// <returns></returns>
         public bool Set(List<StatelySettings> settings)
@@ -76,6 +89,24 @@ namespace Stately.Services
                 _logger.Error<SettingsService>(ex, "Could not save Stately settings");
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Get all the property editor aliases
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<string> GetAliases()
+        {
+            try
+            {
+                return _contentTypeService.GetAllPropertyTypeAliases();
+            }
+            catch (Exception ex)
+            {
+                _logger.Error<SettingsService>(ex, "Could not get property aliases");
+            }
+
+            return null;
         }
     }
 }
